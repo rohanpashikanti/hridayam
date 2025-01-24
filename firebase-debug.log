@@ -1,0 +1,136 @@
+[debug] [2025-01-24T09:36:43.196Z] ----------------------------------------------------------------------
+[debug] [2025-01-24T09:36:43.198Z] Command:       /opt/homebrew/Cellar/node/23.6.0/bin/node /opt/homebrew/bin/firebase init
+[debug] [2025-01-24T09:36:43.198Z] CLI Version:   13.29.2
+[debug] [2025-01-24T09:36:43.199Z] Platform:      darwin
+[debug] [2025-01-24T09:36:43.199Z] Node Version:  v23.6.0
+[debug] [2025-01-24T09:36:43.199Z] Time:          Fri Jan 24 2025 15:06:43 GMT+0530 (India Standard Time)
+[debug] [2025-01-24T09:36:43.199Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-01-24T09:36:43.204Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-01-24T09:36:43.204Z] > authorizing via signed-in user (2203a51252@sru.edu.in)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /Users/rohanpashikanti/Downloads/CBT-final
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[info] i  If you want to create a project in a Google Cloud organization or folder, please use "firebase projects:create" instead, and return to this command when you've created the project. 
+[debug] [2025-01-24T09:37:19.103Z] Checked if tokens are valid: false, expires at: 1728316776861
+[debug] [2025-01-24T09:37:19.103Z] Checked if tokens are valid: false, expires at: 1728316776861
+[debug] [2025-01-24T09:37:19.104Z] > refreshing access token with scopes: []
+[debug] [2025-01-24T09:37:19.106Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-01-24T09:37:19.107Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-01-24T09:37:19.445Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-01-24T09:37:19.445Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-01-24T09:37:19.454Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects [none]
+[debug] [2025-01-24T09:37:19.454Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"projectId":"procbt","name":"procbt"}
+[debug] [2025-01-24T09:37:21.895Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects 200
+[debug] [2025-01-24T09:37:21.895Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"name":"operations/cp.8864252591858320199"}
+[debug] [2025-01-24T09:37:21.897Z] Checked if tokens are valid: true, expires at: 1737715038445
+[debug] [2025-01-24T09:37:21.897Z] Checked if tokens are valid: true, expires at: 1737715038445
+[debug] [2025-01-24T09:37:21.897Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.8864252591858320199 [none]
+[debug] [2025-01-24T09:37:23.697Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.8864252591858320199 200
+[debug] [2025-01-24T09:37:23.697Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.8864252591858320199 {"name":"operations/cp.8864252591858320199"}
+[debug] [2025-01-24T09:37:24.199Z] [Project Creation Poller] Retrying task index 0
+[debug] [2025-01-24T09:37:24.201Z] Checked if tokens are valid: true, expires at: 1737715038445
+[debug] [2025-01-24T09:37:24.201Z] Checked if tokens are valid: true, expires at: 1737715038445
+[debug] [2025-01-24T09:37:24.202Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.8864252591858320199 [none]
+[debug] [2025-01-24T09:37:24.810Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.8864252591858320199 200
+[debug] [2025-01-24T09:37:24.810Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.8864252591858320199 {"name":"operations/cp.8864252591858320199","metadata":{"@type":"type.googleapis.com/google.cloudresourcemanager.v1.ProjectCreationStatus","gettable":true}}
+[debug] [2025-01-24T09:37:25.811Z] [Project Creation Poller] Retrying task index 0
+[debug] [2025-01-24T09:37:25.813Z] Checked if tokens are valid: true, expires at: 1737715038445
+[debug] [2025-01-24T09:37:25.813Z] Checked if tokens are valid: true, expires at: 1737715038445
+[debug] [2025-01-24T09:37:25.814Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.8864252591858320199 [none]
+[debug] [2025-01-24T09:37:26.462Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.8864252591858320199 200
+[debug] [2025-01-24T09:37:26.462Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.8864252591858320199 {"name":"operations/cp.8864252591858320199","metadata":{"@type":"type.googleapis.com/google.cloudresourcemanager.v1.ProjectCreationStatus","gettable":true,"ready":true},"done":true,"response":{"@type":"type.googleapis.com/google.cloudresourcemanager.v1.Project","projectNumber":"1020714292753","projectId":"procbt","lifecycleState":"ACTIVE","name":"procbt","createTime":"2025-01-24T09:37:23.793591Z","parent":{"type":"organization","id":"392164054308"}}}
+[debug] [2025-01-24T09:37:26.464Z] Checked if tokens are valid: true, expires at: 1737715038445
+[debug] [2025-01-24T09:37:26.465Z] Checked if tokens are valid: true, expires at: 1737715038445
+[debug] [2025-01-24T09:37:26.465Z] >>> [apiv2][query] POST https://firebase.googleapis.com/v1beta1/projects/procbt:addFirebase [none]
+[debug] [2025-01-24T09:37:30.130Z] <<< [apiv2][status] POST https://firebase.googleapis.com/v1beta1/projects/procbt:addFirebase 200
+[debug] [2025-01-24T09:37:30.130Z] <<< [apiv2][body] POST https://firebase.googleapis.com/v1beta1/projects/procbt:addFirebase {"name":"operations/workflows/ZDIyNjYwZGYtZTMzNy00NGQ0LTkzMzItODUyOTZjZTdhYTI2"}
+[debug] [2025-01-24T09:37:30.131Z] Checked if tokens are valid: true, expires at: 1737715038445
+[debug] [2025-01-24T09:37:30.131Z] Checked if tokens are valid: true, expires at: 1737715038445
+[debug] [2025-01-24T09:37:30.131Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/operations/workflows/ZDIyNjYwZGYtZTMzNy00NGQ0LTkzMzItODUyOTZjZTdhYTI2 [none]
+[debug] [2025-01-24T09:37:31.170Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/operations/workflows/ZDIyNjYwZGYtZTMzNy00NGQ0LTkzMzItODUyOTZjZTdhYTI2 200
+[debug] [2025-01-24T09:37:31.170Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/operations/workflows/ZDIyNjYwZGYtZTMzNy00NGQ0LTkzMzItODUyOTZjZTdhYTI2 {"name":"operations/workflows/ZDIyNjYwZGYtZTMzNy00NGQ0LTkzMzItODUyOTZjZTdhYTI2"}
+[debug] [2025-01-24T09:37:31.671Z] [Add Firebase Poller] Retrying task index 0
+[debug] [2025-01-24T09:37:31.672Z] Checked if tokens are valid: true, expires at: 1737715038445
+[debug] [2025-01-24T09:37:31.672Z] Checked if tokens are valid: true, expires at: 1737715038445
+[debug] [2025-01-24T09:37:31.673Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/operations/workflows/ZDIyNjYwZGYtZTMzNy00NGQ0LTkzMzItODUyOTZjZTdhYTI2 [none]
+[debug] [2025-01-24T09:37:32.502Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/operations/workflows/ZDIyNjYwZGYtZTMzNy00NGQ0LTkzMzItODUyOTZjZTdhYTI2 200
+[debug] [2025-01-24T09:37:32.503Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/operations/workflows/ZDIyNjYwZGYtZTMzNy00NGQ0LTkzMzItODUyOTZjZTdhYTI2 {"name":"operations/workflows/ZDIyNjYwZGYtZTMzNy00NGQ0LTkzMzItODUyOTZjZTdhYTI2"}
+[debug] [2025-01-24T09:37:33.504Z] [Add Firebase Poller] Retrying task index 0
+[debug] [2025-01-24T09:37:33.505Z] Checked if tokens are valid: true, expires at: 1737715038445
+[debug] [2025-01-24T09:37:33.506Z] Checked if tokens are valid: true, expires at: 1737715038445
+[debug] [2025-01-24T09:37:33.506Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/operations/workflows/ZDIyNjYwZGYtZTMzNy00NGQ0LTkzMzItODUyOTZjZTdhYTI2 [none]
+[debug] [2025-01-24T09:37:34.195Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/operations/workflows/ZDIyNjYwZGYtZTMzNy00NGQ0LTkzMzItODUyOTZjZTdhYTI2 200
+[debug] [2025-01-24T09:37:34.195Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/operations/workflows/ZDIyNjYwZGYtZTMzNy00NGQ0LTkzMzItODUyOTZjZTdhYTI2 {"name":"operations/workflows/ZDIyNjYwZGYtZTMzNy00NGQ0LTkzMzItODUyOTZjZTdhYTI2"}
+[debug] [2025-01-24T09:37:36.196Z] [Add Firebase Poller] Retrying task index 0
+[debug] [2025-01-24T09:37:36.197Z] Checked if tokens are valid: true, expires at: 1737715038445
+[debug] [2025-01-24T09:37:36.197Z] Checked if tokens are valid: true, expires at: 1737715038445
+[debug] [2025-01-24T09:37:36.198Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/operations/workflows/ZDIyNjYwZGYtZTMzNy00NGQ0LTkzMzItODUyOTZjZTdhYTI2 [none]
+[debug] [2025-01-24T09:37:37.109Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/operations/workflows/ZDIyNjYwZGYtZTMzNy00NGQ0LTkzMzItODUyOTZjZTdhYTI2 200
+[debug] [2025-01-24T09:37:37.109Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/operations/workflows/ZDIyNjYwZGYtZTMzNy00NGQ0LTkzMzItODUyOTZjZTdhYTI2 {"name":"operations/workflows/ZDIyNjYwZGYtZTMzNy00NGQ0LTkzMzItODUyOTZjZTdhYTI2"}
+[debug] [2025-01-24T09:37:41.110Z] [Add Firebase Poller] Retrying task index 0
+[debug] [2025-01-24T09:37:41.111Z] Checked if tokens are valid: true, expires at: 1737715038445
+[debug] [2025-01-24T09:37:41.111Z] Checked if tokens are valid: true, expires at: 1737715038445
+[debug] [2025-01-24T09:37:41.111Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/operations/workflows/ZDIyNjYwZGYtZTMzNy00NGQ0LTkzMzItODUyOTZjZTdhYTI2 [none]
+[debug] [2025-01-24T09:37:41.822Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/operations/workflows/ZDIyNjYwZGYtZTMzNy00NGQ0LTkzMzItODUyOTZjZTdhYTI2 200
+[debug] [2025-01-24T09:37:41.822Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/operations/workflows/ZDIyNjYwZGYtZTMzNy00NGQ0LTkzMzItODUyOTZjZTdhYTI2 {"name":"operations/workflows/ZDIyNjYwZGYtZTMzNy00NGQ0LTkzMzItODUyOTZjZTdhYTI2","done":true,"response":{"@type":"type.googleapis.com/google.firebase.service.v1beta1.FirebaseProject","projectId":"procbt","projectNumber":"1020714292753","displayName":"procbt","name":"projects/procbt","resources":{"hostingSite":"procbt"}}}
+[info] 
+[info] 🎉🎉🎉 Your Firebase project is ready! 🎉🎉🎉
+[info] 
+[info] Project information:
+[info]    - Project ID: procbt
+[info]    - Project Name: procbt
+[info] 
+[info] Firebase console is available at
+[info] https://console.firebase.google.com/project/procbt/overview
+[info] i  Using project procbt (procbt) 
+[info] 
+=== Hosting Setup
+[debug] [2025-01-24T09:37:41.832Z] Checked if tokens are valid: true, expires at: 1737715038445
+[debug] [2025-01-24T09:37:41.832Z] Checked if tokens are valid: true, expires at: 1737715038445
+[debug] [2025-01-24T09:37:41.832Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/procbt [none]
+[debug] [2025-01-24T09:37:42.434Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/procbt 200
+[debug] [2025-01-24T09:37:42.434Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/procbt {"projectId":"procbt","projectNumber":"1020714292753","displayName":"procbt","name":"projects/procbt","resources":{"hostingSite":"procbt"},"state":"ACTIVE","etag":"1_4a3b935f-6a76-4f2e-8369-61d032cebbd6"}
+[info] 
+[info] Your public directory is the folder (relative to your project directory) that
+[info] will contain Hosting assets to be uploaded with firebase deploy. If you
+[info] have a build process for your assets, use your build's output directory.
+[info] 
+[info] ✔  Wrote public/404.html 
+[debug] [2025-01-24T09:38:15.513Z] >>> [apiv2][query] GET https://www.gstatic.com/firebasejs/releases.json [none]
+[debug] [2025-01-24T09:38:15.707Z] <<< [apiv2][status] GET https://www.gstatic.com/firebasejs/releases.json 200
+[debug] [2025-01-24T09:38:15.707Z] <<< [apiv2][body] GET https://www.gstatic.com/firebasejs/releases.json {"current":{"version":"11.2.0","browserURL":"https://www.gstatic.com/firebasejs/11.2.0/firebase.js","packageURL":"https://www.gstatic.com/firebasejs/11.2.0/firebase.tgz"},"live":{"version":"11.2","browserURL":"https://www.gstatic.com/firebasejs/live/11.2/firebase.js","packageURL":"https://www.gstatic.com/firebasejs/live/11.2/firebase.tgz"},"components":{"analytics":"https://www.gstatic.com/firebasejs/11.2.0/firebase-analytics.js","app":"https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js","app-check":"https://www.gstatic.com/firebasejs/11.2.0/firebase-app-check.js","auth":"https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js","auth/cordova":"https://www.gstatic.com/firebasejs/11.2.0/firebase-auth/cordova.js","auth/web-extension":"https://www.gstatic.com/firebasejs/11.2.0/firebase-auth/web-extension.js","functions":"https://www.gstatic.com/firebasejs/11.2.0/firebase-functions.js","firestore":"https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js","firestore/lite":"https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore/lite.js","installations":"https://www.gstatic.com/firebasejs/11.2.0/firebase-installations.js","storage":"https://www.gstatic.com/firebasejs/11.2.0/firebase-storage.js","performance":"https://www.gstatic.com/firebasejs/11.2.0/firebase-performance.js","remote-config":"https://www.gstatic.com/firebasejs/11.2.0/firebase-remote-config.js","messaging":"https://www.gstatic.com/firebasejs/11.2.0/firebase-messaging.js","messaging/sw":"https://www.gstatic.com/firebasejs/11.2.0/firebase-messaging/sw.js","database":"https://www.gstatic.com/firebasejs/11.2.0/firebase-database.js","vertexai":"https://www.gstatic.com/firebasejs/11.2.0/firebase-vertexai.js","data-connect":"https://www.gstatic.com/firebasejs/11.2.0/firebase-data-connect.js","firestore.memory":"https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.memory.js"}}
+[info] ✔  Wrote public/index.html 
+[info] 
+[info] i  Didn't detect a .git folder. Assuming /Users/rohanpashikanti/Downloads/CBT-final is the project root. 
+[info] i  Authorizing with GitHub to upload your service account to a GitHub repository's secrets store. 
+[info] 
+[info] Visit this URL on this device to log in:
+[info] https://github.com/login/oauth/authorize?client_id=89cf50f02ac6aaed3484&state=752599168&redirect_uri=http%3A%2F%2Flocalhost%3A9005&scope=read%3Auser%20repo%20public_repo
+[info] 
+[info] Waiting for authentication...
+[debug] [2025-01-24T09:38:25.826Z] >>> [apiv2][query] POST https://github.com/login/oauth/access_token [none]
+[debug] [2025-01-24T09:38:25.827Z] >>> [apiv2][body] POST https://github.com/login/oauth/access_token [stream]
+[debug] [2025-01-24T09:38:26.256Z] <<< [apiv2][status] POST https://github.com/login/oauth/access_token 200
+[debug] [2025-01-24T09:38:26.256Z] <<< [apiv2][body] POST https://github.com/login/oauth/access_token {"access_token":"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","token_type":"bearer","scope":"read:user,repo"}
+[debug] [2025-01-24T09:38:26.269Z] >>> [apiv2][query] GET https://api.github.com/user [none]
+[debug] [2025-01-24T09:38:26.700Z] <<< [apiv2][status] GET https://api.github.com/user 200
+[debug] [2025-01-24T09:38:26.700Z] <<< [apiv2][body] GET https://api.github.com/user {"login":"rohanpashikanti","id":140698619,"node_id":"U_kgDOCGLj-w","avatar_url":"https://avatars.githubusercontent.com/u/140698619?v=4","gravatar_id":"","url":"https://api.github.com/users/rohanpashikanti","html_url":"https://github.com/rohanpashikanti","followers_url":"https://api.github.com/users/rohanpashikanti/followers","following_url":"https://api.github.com/users/rohanpashikanti/following{/other_user}","gists_url":"https://api.github.com/users/rohanpashikanti/gists{/gist_id}","starred_url":"https://api.github.com/users/rohanpashikanti/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/rohanpashikanti/subscriptions","organizations_url":"https://api.github.com/users/rohanpashikanti/orgs","repos_url":"https://api.github.com/users/rohanpashikanti/repos","events_url":"https://api.github.com/users/rohanpashikanti/events{/privacy}","received_events_url":"https://api.github.com/users/rohanpashikanti/received_events","type":"User","user_view_type":"private","site_admin":false,"name":"Rohan Pashikanti","company":null,"blog":"","location":null,"email":null,"hireable":null,"bio":"3rd Year Engineering Student | Frontend Developer in the Making | Bringing Ideas to Life with Code","twitter_username":null,"notification_email":null,"public_repos":13,"public_gists":0,"followers":0,"following":0,"created_at":"2023-07-27T08:22:19Z","updated_at":"2024-12-20T04:08:32Z","private_gists":2,"total_private_repos":0,"owned_private_repos":0,"disk_usage":143134,"collaborators":0,"two_factor_authentication":false,"plan":{"name":"free","space":976562499,"collaborators":0,"private_repos":10000}}
+[info] 
+[info] ✔  Success! Logged into GitHub as rohanpashikanti 
+[info] 

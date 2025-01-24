@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HRIDAYAM</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link 
+    href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Jersey+15&display=swap" 
+    rel="stylesheet"
+  />
+
+  <!-- Vanta Dependencies (p5 + topology) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.24/vanta.topology.min.js"></script>
+
+  <style>
+    /* -------------------------------------
+       Your existing styling rules
+    -------------------------------------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: black;
+      overflow: hidden;
+      font-family: "Abril Fatface", cursive; /* Ensuring consistent font */
+    }
+    .phone-container {
+      width: 375px;
+      height: 812px;
+      background: rgb(180, 191, 246);
+      border-radius: 30px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border: 1px solid #ddd;
+      position: relative;
+      z-index: 1;
+    }
+    .scroll-container {
+      display: flex;
+      width: 500%;
+      height: 100%;
+      transition: transform 0.5s ease-in-out;
+    }
+    .page {
+      font-family: "Macondo", serif;
+      background: rgb(180, 191, 246);
+      width: 20%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+    }
+    .logo {
+      font-size: 2.2rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #2d3436;
+    }
+    .logo-wrap {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 70%;
+    }
+    .st0 {
+      stroke: #d19ae7;
+      fill: #fff;
+      stroke-dasharray: 920;
+      opacity: 2;
+      animation: logo-animation 5s cubic-bezier(0.67, 0.5, 0.175, 1);
+      animation-fill-mode: forwards;
+    }
+    .st2 {
+      justify-content: space-evenly;
+      justify-items: center;
+      text-align: center;
+      font-size: 150px;
+      letter-spacing: 12px;
+    }
+    @keyframes logo-animation {
+      0% {
+          opacity: 0;
+          fill: none;
+          stroke-dasharray: 920;
+      }
+      30% {
+          opacity: 1;
+      }
+      50% {
+          fill: rgba(255, 255, 255, 0);
+      }
+      100% {
+          opacity: 1;
+          stroke-dasharray: 200;
+          stroke: transparent;
+          fill: rgba(255, 255, 255, 1);
+      }
+    }
+    .button {
+      background-color: #2d3436;
+      color: white;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 25px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: all 0.3s;
+    }
+    .button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    h1, h2 {
+      color: #2d3436;
+      margin-bottom: 10px;
+      font-family: "Macondo", serif;
+    }
+    .title-page {
+      justify-content:center;
+      padding-top: 120px; 
+    }
+    .logo {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    .logo-wrap {
+      width: 80%;
+      margin: 0 auto;
+    }
+    .logo-wrap svg {
+      width: 100%;
+      height: auto;
+    }
+    .title-page p {
+      margin-top: 50px;
+      padding: 0 30px;
+    }
+    p {
+      color: #2d3436;
+      margin-bottom: 20px;
+      line-height: 1.5;
+      opacity: 0.8;
+    }
+    .nav {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 8px;
+      border-radius: 20px;
+      z-index: 10;
+    }
+    .nav-dot {
+      width: 8px;
+      height: 9px;
+      border-radius: 35%;
+      background: rgba(45, 52, 54, 0.3);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .nav-dot.active {
+      width: 18px;
+      background: #2d3436;
+    }
+    /* Login Page Styles */
+    .login-page {
+      background: rgb(180, 191, 246);
+      padding: 0;
+    }
+    .form-box {
+      width: 340px;
+      background: transparent;
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      border-radius: 20px;
+      backdrop-filter: blur(15px);
+      padding: 40px 20px;
+    }
+    .inputbox {
+      position: relative;
+      margin: 30px 0;
+      width: 100%;
+      border-bottom: 2px solid #fff;
+    }
+    .inputbox label {
+      position:absolute;
+      top: 50%;
+      left: 5px;
+      transform: translateY(-50%);
+      color: #fff;
+      font-size: 1em;
+      pointer-events: none;
+      transition: 0.5s;
+    }
+    .inputbox input {
+      width: 100%;
+      height: 50px;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-size: 1em;
+      padding: 0 35px 0 5px;
+      color: #fff;
+    }
+    .inputbox input:focus ~ label,
+    .inputbox input:valid ~ label {
+      top: -5px;
+    }
+    .forget {
+      display: flex;
+      justify-content: space-between;
+      margin: 10px 0 15px;
+      font-size: 0.9em;
+      color: #fff;
+    }
+    .forget label input[type="checkbox"] {
+      margin-right: 6px;
+    }
+    .forget label a {
+      color: #fff;
+      text-decoration: none;
+    }
+    .login-btn,
+    .register-btn {
+      width: 100%;
+      height: 40px;
+      border-radius: 40px;
+      background: #fff;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      font-size: 1em;
+      font-weight: 600;
+    }
+    .register {
+      font-size: 0.9em;
+      color: #fff;
+      text-align: center;
+      margin: 25px 0 10px;
+    }
+    .register p a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: 600;
+    }
+    /* From Uiverse.io by adamgiebl */ 
+    .cssbuttons-io-button {
+      background: #a370f0;
+      color: white;
+      font-family: inherit;
+      padding: 0.35em;
+      padding-left: 1.2em;
+      font-size: 17px;
+      font-weight: 500;
+      border-radius: 0.9em;
+      border: none;
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      box-shadow: inset 0 0 1.6em -0.6em #714da6;
+      overflow: hidden;
+      position: relative;
+      height: 2.8em;
+      padding-right: 3.3em;
+      cursor: pointer;
+    }
+    .cssbuttons-io-button .icon {
+      background: white;
+      margin-left: 1em;
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 2.2em;
+      width: 2.2em;
+      border-radius: 0.7em;
+      box-shadow: 0.1em 0.1em 0.6em 0.2em #7b52b9;
+      right: 0.3em;
+      transition: all 0.3s;
+    }
+    .cssbuttons-io-button:hover .icon {
+      width: calc(100% - 0.6em);
+    }
+    .cssbuttons-io-button .icon svg {
+      width: 1.1em;
+      transition: transform 0.3s;
+      color: #7b52b9;
+    }
+    .cssbuttons-io-button:hover .icon svg {
+      transform: translateX(0.1em);
+    }
+    .cssbuttons-io-button:active .icon {
+      transform: scale(0.95);
+    }
+
+    /* -------------------------------------
+       New Animation Styles
+    -------------------------------------- */
+    .swift-up-text {
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .swift-up-text span {
+      display: inline-block;
+      overflow: hidden;
+      transform: translateY(100%);
+      animation: swift-up 0.5s ease forwards;
+    }
+
+    .swift-up-text span i {
+      display: inline-block;
+      transform: translateY(100%);
+      animation: swift-up 0.5s ease forwards;
+    }
+
+    @keyframes swift-up {
+      to {
+        transform: translateY(0);
+      }
+    }
+
+    @media screen and (max-width: 1000px){
+      .container{
+        width: auto;
+        margin: 0 10%;
+      }
+      
+      :root{
+        --headingSize: 35px;
+      }
+    }
+  </style>
+</head>
+<body id="vanta-bg">
+  <div class="phone-container">
+    <div class="scroll-container">
+      <!-- Slide 1: Welcome Page (index 0) -->
+      <div class="page title-page">
+        <div class="logo">
+          <div class="logo-wrap">
+            <svg version="1.1" id="Слой_1" xmlns="http://www.w3.org/2000/svg"
+                 xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 855 150"
+                 preserveAspectRatio="xMidYMid meet">
+              <style type="text/css">
+                .st0{fill:none;stroke:black;stroke-width:3;stroke-miterlimit:10;}
+                .st1{font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;}
+                .st2{font-size:120px;text-anchor:middle;}
+              </style>
+              <text x="50%" y="50%" dy="0.35em" class="st0 st1 st2">HRIDAYAM</text>
+            </svg>
+          </div>
+        </div>
+        <br>
+        <p class="swift-up-text">Your &nbsp; AI &nbsp;companion&nbsp; for &nbsp;mental&nbsp; wellness</p>
+        <button class="cssbuttons-io-button" onclick="nextPage()">
+          Get started
+          <div class="icon">
+            <svg height="24" width="24" viewBox="0 0 24 24">
+              <path d="M0 0h24v24H0z" fill="none"></path>
+              <path
+                d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+                fill="currentColor"
+              ></path>
+            </svg>
+          </div>
+        </button>          
+      </div>
+
+      <!-- Slide 2: Introduction Page (index 1) -->
+      <div class="page">
+        <h2 class="swift-up-text">Welcome&nbsp; to&nbsp; CBT &nbsp;Therapy</h2>
+        <p class="swift-up-text">
+          I'm &nbsp;here&nbsp; to &nbsp;help&nbsp; you &nbsp; identify&nbsp; and &nbsp;transform &nbsp;negative &nbsp;thought &nbsp;patterns&nbsp; into &nbsp;positive&nbsp; ones.
+        </p>
+        <button class="cssbuttons-io-button" onclick="nextPage()">
+          Continue
+          <div class="icon">
+            <svg height="24" width="24" viewBox="0 0 24 24">
+              <path d="M0 0h24v24H0z" fill="none"></path>
+              <path
+                d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+                fill="currentColor"
+              ></path>
+            </svg>
+          </div>
+        </button>
+      </div>
+
+      <!-- Slide 3: Motivation Page (index 2) -->
+      <div class="page">
+        <h2 class="swift-up-text">CBT Motivation</h2>
+        <p class="swift-up-text">
+          Remember,&nbsp; every &nbsp;small&nbsp; positive &nbsp;step &nbsp;adds &nbsp;up &nbsp;to &nbsp;massive &nbsp;changes.&nbsp;<br> We're&nbsp;
+          here&nbsp; to&nbsp; support&nbsp; you &nbsp;<br>through&nbsp; each &nbsp;step&nbsp; of &nbsp;your&nbsp; journey.
+        </p>
+        <button class="cssbuttons-io-button" onclick="nextPage()">
+          Continue
+          <div class="icon">
+            <svg height="24" width="24" viewBox="0 0 24 24">
+              <path d="M0 0h24v24H0z" fill="none"></path>
+              <path
+                d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+                fill="currentColor"
+              ></path>
+            </svg>
+          </div>
+        </button>
+      </div>
+
+      <!-- Slide 4: Login Page (index 3) -->
+      <div class="page login-page">
+        <div class="form-box">
+          <form id="loginForm">
+            <h2>Login</h2>
+            <div class="inputbox">
+              <input type="email" id="loginEmail" required/>
+              <label>Email</label>
+            </div>
+            <div class="inputbox">
+              <input type="password" id="loginPassword" required/>
+              <label>Password</label>
+            </div>
+            <div class="forget">
+              <label>
+                <input type="checkbox" />
+                Remember me
+              </label>
+              <label>
+                <a href="#">Forgot password?</a>
+              </label>
+            </div>
+            <button class="login-btn" type="submit">Log in</button>
+            <div class="register">
+              <p>
+                Don't have an account?
+                <a href="javascript:void(0);" onclick="goToPage(4)">Register</a>
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Slide 5: Registration Page (index 4) -->
+      <div class="page">
+        <div class="form-box">
+          <form id="registerForm">
+            <h2>Register</h2>
+            <div class="inputbox">
+              <input type="email" id="registerEmail" required/>
+              <label>Email</label>
+            </div>
+            <div class="inputbox">
+              <input type="password" id="registerPassword" required/>
+              <label>Password</label>
+            </div>
+            <div class="inputbox">
+              <input type="password" id="confirmPassword" required/>
+              <label>Confirm Password</label>
+            </div>
+            <button class="register-btn" type="submit">Register</button>
+          </form>
+          <div class="register">
+            <p>
+              Already have an account?
+              <a href="javascript:void(0);" onclick="goToPage(3)">Login</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Dots -->
+    <div class="nav">
+      <div class="nav-dot active" onclick="goToPage(0)"></div>
+      <div class="nav-dot" onclick="goToPage(1)"></div>
+      <div class="nav-dot" onclick="goToPage(2)"></div>
+      <div class="nav-dot" onclick="goToPage(3)"></div>
+      <div class="nav-dot" onclick="goToPage(4)"></div>
+    </div>
+  </div>
+
+  <!-- JS: Page Slider & Nav Logic -->
+  <script>
+    let currentPage = 0;
+    const totalPages = 5;
+    const container = document.querySelector(".scroll-container");
+    const dots = document.querySelectorAll(".nav-dot");
+
+    function updateDots() {
+      dots.forEach((dot, index) => {
+        dot.classList.toggle("active", index === currentPage);
+      });
+    }
+
+    function goToPage(pageNumber) {
+      currentPage = pageNumber;
+      container.style.transform = `translateX(-${currentPage * 20}%)`;
+      updateDots();
+    }
+
+    function nextPage() {
+      if (currentPage < totalPages - 1) {
+        currentPage++;
+        goToPage(currentPage);
+      }
+    }
+  </script>
+
+  <!-- JS: Text Animation Logic -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const swiftUpElements = document.querySelectorAll('.swift-up-text');
+
+      swiftUpElements.forEach(elem => {
+        const words = elem.textContent.trim().split(' ');
+        elem.innerHTML = '';
+
+        words.forEach((word, index) => {
+          elem.innerHTML += `<span><i>${word}</i> </span>`;
+        });
+
+        const spans = elem.querySelectorAll('span i');
+        spans.forEach((node, index) => {
+          node.style.animationDelay = `${index * 0.2}s`;
+        });
+      });
+    });
+  </script>
+
+  <!-- Firebase Auth Logic (as a module) -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics.js";
+    import {
+      getAuth,
+      createUserWithEmailAndPassword,
+      signInWithEmailAndPassword,
+    } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+
+    // Your Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyA3MaLXh6fiN66qPnSjej1DOp0wWrmyQXc",
+      authDomain: "pcbt-d9177.firebaseapp.com",
+      projectId: "pcbt-d9177",
+      storageBucket: "pcbt-d9177.firebasestorage.app",
+      messagingSenderId: "898109326869",
+      appId: "1:898109326869:web:8169cde6962264ce8ff01c",
+      measurementId: "G-GJKH2P9PVR",
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const auth = getAuth(app);
+
+    // Elements
+    const loginForm = document.getElementById("loginForm");
+    const registerForm = document.getElementById("registerForm");
+
+    const loginEmail = document.getElementById("loginEmail");
+    const loginPassword = document.getElementById("loginPassword");
+
+    const registerEmail = document.getElementById("registerEmail");
+    const registerPassword = document.getElementById("registerPassword");
+    const confirmPassword = document.getElementById("confirmPassword");
+
+    // -------------------------
+    // REGISTER (New user flow)
+    // -------------------------
+    if (registerForm) {
+      registerForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        if (registerPassword.value !== confirmPassword.value) {
+          alert("Passwords do not match. Please re-check.");
+          return;
+        }
+        try {
+          // Create user in Firebase
+          await createUserWithEmailAndPassword(auth, registerEmail.value, registerPassword.value);
+
+          // Mark localStorage => new user
+          localStorage.setItem("isNewUser", "true");
+
+          // Alert or show success
+          alert("Registration successful! Please log in now.");
+
+          // Move user to the login slide (index 3)
+          goToPage(3);
+
+        } catch (error) {
+          console.error("Registration error:", error);
+          alert(`Registration failed: ${error.message}`);
+        }
+      });
+    }
+
+    // -------------------------
+    // LOGIN (Existing user flow)
+    // -------------------------
+    if (loginForm) {
+      loginForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        try {
+          // Sign in
+          await signInWithEmailAndPassword(auth, loginEmail.value, loginPassword.value);
+
+          // Check if localStorage says "isNewUser"
+          if (localStorage.getItem("isNewUser") === "true") {
+            // It's a new user => remove flag => go quiz
+            localStorage.removeItem("isNewUser");
+            window.location.href = "/quiz";
+          } else {
+            // Existing user => go home
+            window.location.href = "/home";
+          }
+        } catch (error) {
+          console.error("Login error:", error);
+          alert(`Login failed: ${error.message}`);
+        }
+      });
+    }
+  </script>
+
+  <!-- Vanta.js Topology Initialization -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      VANTA.TOPOLOGY({
+        el: "#vanta-bg",
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.00,
+        minWidth: 200.00,
+        scale: 1.00,
+        scaleMobile: 1.00,
+        backgroundColor: 0x2222,
+        color: 0x87d4ff
+      });
+    });
+  </script>
+</body>
+</html>

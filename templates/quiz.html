@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>HRIDAYAM</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Jersey+15&display=swap"
+        rel="stylesheet"
+    />
+
+    <!-- Vanta Dependencies: p5 + topology -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.24/vanta.topology.min.js"></script>
+
+    <style>
+        /* Base reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body for full-screen Vanta background */
+        body {
+            background: black; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: "Macondo", serif;
+            font-weight: 400;
+            font-style: normal;
+            overflow: hidden; /* hides scrollbars for a clean effect */
+        }
+
+        /* Phone Container */
+        .phone-container {
+            justify-content: space-evenly;
+            width: 90%; /* Make width relative for responsiveness */
+            max-width: 360px;
+            background: rgb(180, 191, 246);
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            height: 80vh;
+            font-family: "Macondo", serif;
+            font-weight: 400;
+            font-style: italic;
+            position: relative; /* so container is above Vanta background */
+            z-index: 1;         /* ensures container is above the Vanta canvas */
+        }
+
+        /* Quiz and Results Containers */
+        .quiz-container,
+        .results-container {
+            display: none;
+            flex-direction: column;
+            gap: 20px;
+            text-align: center;
+        }
+
+        .quiz-container.active {
+            display: flex;
+        }
+
+        .progress-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .progress-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-image: url('https://img.icons8.com/?size=100&id=87&format=png&color=D8F0FA');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            color:  rgb(241, 252, 255);
+            font-weight: bold;
+        }
+
+        .back-button {
+            border-radius: 50%; 
+            display: flex;
+            align-items: center;
+            font-size: 20px;
+            color:  rgb(241, 252, 255);
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            justify-items: center;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .stat-card {
+            padding: 15px;
+            border-radius: 15px;
+            text-align: center;
+            color: white;
+        }
+
+        /* Progress Bar Styling */
+        .progress-bar {
+            height: 4px;
+            width: 40px;
+            border-radius: 2px;
+        }
+
+        .progress-bar.unattempted {
+            background: #e0e0e0;
+        }
+
+        .question {
+            margin-top: -20px;
+            background-color:#ECEFF1;
+            border-radius: 20px;
+            text-align: center;
+            margin: 20px 0;
+            color: #333;
+            font-size: 18px;
+            padding:20px;
+            box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .option {
+            background-color: rgb(213, 217, 252);
+            padding: 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+        }
+
+        .option:hover {
+            border-color: rgb(205, 211, 243);
+            transform: translate(-3px, -3px);
+            box-shadow: 4px 4px 0px rgb(241, 252, 255);
+        }
+
+        .option.selected {
+            border-color: rgb(205, 211, 243);
+            background: rgb(241, 252, 255);
+        }
+
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            border: 1px solid rgb(241, 252, 255);
+            border-radius: 4px;
+            margin-right: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .option.selected .checkbox {
+            border-color: rgb(241, 252, 255);
+            background: #4c6fff;
+            color: white;
+        }
+
+        .option.selected .checkbox::after {
+            content: "✓";
+        }
+
+        .next-button {
+            margin-top: 2%;
+            background: rgb(239, 237, 244);
+            color: black;
+            border: none;
+            border-radius: 12px;
+            padding: 14px;
+            width: 100%;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            font-family: "Macondo", serif;
+            font-weight: 400;
+            font-style: italic;
+        }
+
+        .next-button:hover {
+            border-color: rgb(241, 252, 255);
+            background: linear-gradient(65deg, #D8F0FA, #C6E6F9, #AED1F1, #84ACF7, #719AED);
+            color: black;
+        }
+
+        /* Results page styles */
+        .results-container {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            justify-items:center;
+        }
+
+        .score-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: #f0f3ff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 20px auto;
+        }
+
+        .score-number {
+            font-size: 32px;
+            color: #4c6fff;
+            font-weight: bold;
+        }
+
+        .score-text {
+            color: #666;
+            font-size: 12px;
+        }
+
+        .stats-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .stat-card {
+            height: 100px;
+            width: 100px;
+            padding: 15px;
+            border-radius: 10px;
+            justify-content: space-evenly;
+            text-align: center;
+            color: white;
+        }
+
+        .stat-card h3 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .stat-card p {
+            font-size: 12px;
+        }
+
+        .stat-card.mood {
+            background: #4CAF50;
+        }
+
+        .stat-card.relationships {
+            background: #f44336;
+        }
+
+        .stat-card.habits {
+            background: #ff9800;
+        }
+
+        .stat-card.focus {
+            background: #9c27b0;
+        }
+
+        .title {
+            font-size: 20px;
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+
+<body id="vanta-bg">
+    <div class="phone-container">
+        <!-- Quiz Section -->
+        <div id="quiz-container">
+            <!-- Back button -->
+            <div class="back-button" id="back-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
+                    <path 
+                      fill="none" 
+                      stroke="currentColor" 
+                      stroke-linecap="round" 
+                      stroke-linejoin="round" 
+                      stroke-width="1.5"
+                      d="M10.296 6.889L4.833 11.18a.5.5 0 0 0 0 .786l5.463 4.292a.5.5 0 0 0 .801-.482l-.355-1.955c5.016-1.204 7.108 1.494 7.914 3.235c.118.254.614.205.64-.073c.645-7.201-4.082-8.244-8.57-7.567l.371-2.046a.5.5 0 0 0-.8-.482"
+                    />
+                </svg>
+            </div>
+
+            <div class="progress-container">
+                <div class="progress-bars" id="progress-bars"></div>
+                <div class="progress-circle">1</div>
+            </div>
+            <div class="question" id="question-text"></div>
+            <div class="options" id="options-container"></div>
+            <button class="next-button" id="next-button">Next</button>
+        </div>
+
+        <!-- Results Section -->
+        <div id="results-container" class="results-container">
+            <h1 class="title">Quiz Complete!</h1>
+            <p class="subtitle">Here's how you performed</p>
+            <div class="stats-grid"></div>
+            <!-- CHANGE to goHome() here -->
+            <button class="next-button" onclick="goHome()">Get Started</button>
+        </div>
+    </div>
+
+    <!-- QUIZ LOGIC SCRIPTS -->
+    <script>
+      let currentQuestionIndex = 0;
+      let responses = [];
+      const totalQuestions = 20; // total # of questions
+
+      // fetch a question
+      async function fetchQuestion(index) {
+        try {
+          const response = await fetch(`/get-question?index=${index}`);
+          const data = await response.json();
+
+          if (data.error) {
+            alert(data.error);
+            return;
+          }
+
+          document.getElementById('question-text').textContent = data.question;
+          const optionsContainer = document.getElementById('options-container');
+          optionsContainer.innerHTML = '';
+
+          data.options.forEach((option, idx) => {
+            const optionElement = document.createElement('div');
+            optionElement.className = 'option';
+            optionElement.innerHTML = `
+              <div class="checkbox"></div>
+              <span class="option-text">${option}</span>
+            `;
+            optionElement.onclick = () => selectOption(option, idx);
+            optionsContainer.appendChild(optionElement);
+          });
+
+          // Re-mark any previously selected option
+          if (responses[index] !== undefined) {
+            const previouslySelected = responses[index];
+            document.querySelectorAll('#options-container .option').forEach(opt => {
+              const text = opt.querySelector('.option-text').textContent;
+              if (text === previouslySelected) {
+                opt.classList.add('selected');
+              }
+            });
+          }
+
+          document.querySelector('.progress-circle').textContent = index + 1;
+
+          // Hide back-button on the first question
+          if (index === 0) {
+            document.getElementById('back-button').style.visibility = 'hidden';
+          } else {
+            document.getElementById('back-button').style.visibility = 'visible';
+          }
+
+          const nextButton = document.getElementById('next-button');
+          if (index === totalQuestions - 1) {
+            nextButton.textContent = 'Submit';
+            nextButton.onclick = submitResponses;
+          } else {
+            nextButton.textContent = 'Next';
+            nextButton.onclick = nextQuestion;
+          }
+        } catch (error) {
+          console.error("Error fetching question:", error);
+        }
+      }
+
+      function updateProgressBars() {
+        const progressBars = document.getElementById('progress-bars');
+        progressBars.innerHTML = '';
+
+        for (let i = 0; i < 10; i++) {
+          const bar = document.createElement('div');
+          bar.className = 'progress-bar unattempted';
+          progressBars.appendChild(bar);
+        }
+      }
+
+      // handle selection
+      function selectOption(option, idx) {
+        responses[currentQuestionIndex] = option;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('.option')[idx].classList.add('selected');
+      }
+
+      // next question
+      async function nextQuestion() {
+        if (responses[currentQuestionIndex] === undefined) {
+          return; // block if no option is selected
+        }
+        currentQuestionIndex++;
+        await fetchQuestion(currentQuestionIndex);
+      }
+
+      async function goBack() {
+        if (currentQuestionIndex > 0) {
+          currentQuestionIndex--;
+          await fetchQuestion(currentQuestionIndex);
+        }
+      }
+      document.getElementById('back-button').addEventListener('click', goBack);
+
+      async function submitResponses() {
+        try {
+          const response = await fetch('/submit-responses', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ responses })
+          });
+          const data = await response.json();
+
+          if (data.error) {
+            alert(data.error);
+            return;
+          }
+          showResults(data);
+        } catch (error) {
+          console.error("Error submitting responses:", error);
+        }
+      }
+
+      function showResults(data) {
+        document.getElementById('quiz-container').style.display = 'none';
+        document.getElementById('results-container').style.display = 'flex';
+
+        const statsGrid = document.querySelector('.stats-grid');
+        statsGrid.innerHTML = '';
+
+        const categoryMetrics = [
+          { value: `${data.mood}%`, label: "Mood", class: "mood" },
+          { value: `${data.relationships}%`, label: "Relationships", class: "relationships" },
+          { value: `${data.habits}%`, label: "Habits", class: "habits" },
+          { value: `${data.focus}%`, label: "Focus", class: "focus" },
+        ];
+
+        categoryMetrics.forEach(metric => {
+          const metricCard = document.createElement('div');
+          metricCard.className = `stat-card ${metric.class}`;
+          metricCard.innerHTML = `
+            <h3>${metric.value}</h3>
+            <p>${metric.label}</p>
+          `;
+          statsGrid.appendChild(metricCard);
+        });
+      }
+
+      // 1) "Get Started" => go to home.html
+      function goHome() {
+        // if you have a Flask route /home, do this:
+        window.location.href = "/home";
+      }
+
+      // Initial load
+      fetchQuestion(0);
+    </script>
+
+    <!-- 2) The Vanta Topology Initialization Script -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        VANTA.TOPOLOGY({
+          el: "#vanta-bg",
+          mouseControls: true,
+          touchControls: true,
+          gyroControls: false,
+          minHeight: 200.00,
+          minWidth: 200.00,
+          scale: 1.00,
+          scaleMobile: 1.00,
+          backgroundColor: 0x2222,
+          color: 0x87d4ff
+        });
+      });
+    </script>
+</body>
+</html>
