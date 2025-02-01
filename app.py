@@ -7,8 +7,8 @@ app = Flask(__name__)
 # -------------------------------------------------
 #           Hugging Face Chat Setup
 # -------------------------------------------------
-API_URL = "https://api-inference.huggingface.co/models/rdwdaww/cbt-model"
-HEADERS = {"Authorization": "Bearer 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"}
+API_URL = "https://api-inference.huggingface.co/models/rdwdaww/Hridayam"
+HEADERS = {"Authorization": "Bearer Enter_Your_Api_Key"}
 
 def query_huggingface_api(payload, retries=3, delay=5):
     for attempt in range(retries):
