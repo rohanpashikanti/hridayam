@@ -1,0 +1,223 @@
+/* Root variables and global resets remain the same */
+:root {
+    --primary-color: #000;
+    --background-color: #fff;
+    --pink: #ffd6d6;
+    --text-color: #333;
+    --secondary-text: #666;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--pink);
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    align-items: center;
+    align-content: space-around;
+    background-color: var(--background-color);
+    width: 100%;
+    max-width: 420px;
+    min-height: 100vh;
+    border-radius: 32px;
+    padding: 35px;
+    position: relative;
+    overflow: hidden;
+    animation: slideUp 0.5s ease-out;
+}
+
+.app-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 32px;
+    animation: fadeIn 0.5s ease-out 0.2s both;
+}
+
+.app-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.app-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.app-details h1 {
+    font-size: 24px;
+    margin-bottom: 4px;
+}
+
+.subtitle {
+    color: var(--secondary-text);
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.new-badge {
+    background-color: #ff6b6b;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.photos-section,
+.about-section {
+    margin-bottom: 32px;
+    animation: fadeIn 0.5s ease-out 0.4s both;
+}
+
+h2 {
+    font-size: 20px;
+    margin-bottom: 16px;
+}
+
+/* --- UPDATED GALLERY SECTION FOR HORIZONTAL SCROLL & IMAGE FIT --- */
+.gallery {
+    display: flex;            /* Change from grid to flex */
+    gap: 16px;                /* Spacing between items */
+    overflow-x: auto;         /* Horizontal scroll if too many images */
+    scroll-behavior: smooth;  /* Optional smooth scroll */
+    padding-bottom: 8px;      /* Add some spacing to avoid scroll bar overlap */
+    height: 340px;
+    width: 100%;
+}
+
+.gallery::-webkit-scrollbar {
+    height: 6px;             /* Customize scrollbar height if desired */
+}
+
+.gallery::-webkit-scrollbar-thumb {
+    background: #ccc;        /* Customize scrollbar thumb color */
+    border-radius: 4px;
+}
+
+.gallery-item {
+    flex: 0 0 auto;          /* Each item maintains its width, no shrinking */
+    aspect-ratio: 2.5 / 5;     /* Maintain a 3:4 aspect ratio */
+    border-radius: 16px;
+    overflow: hidden;
+    background: #eee;        /* Fallback background */
+    position: relative;
+    transition: transform 0.3s;
+}
+
+.gallery-item:hover {
+    transform: scale(1.02);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;       /* Ensures the image fills the container */
+}
+
+.about-section p {
+    color: var(--secondary-text);
+    line-height: 1.9;
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    gap: 12px;
+    animation: fadeIn 0.5s ease-out 0.6s both;
+}
+
+.download-button,
+.web-button {
+    width: 100%;
+    border: none;
+    padding: 16px;
+    border-radius: 16px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+.download-button {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.web-button {
+    background-color: #f5f5f5;
+    color: var(--primary-color);
+}
+
+.download-button:hover,
+.web-button:hover {
+    transform: translateY(-2px);
+}
+
+.download-button:hover {
+    background-color: #333;
+}
+
+.web-button:hover {
+    background-color: #eee;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .container {
+        border-radius: 0;
+        max-width: 100%;
+    }
+    
+    .app-info {
+        gap: 12px;
+    }
+    
+    .app-icon {
+        width: 64px;
+        height: 64px;
+    }
+    
+    .gallery {
+        gap: 12px;
+    }
+}
